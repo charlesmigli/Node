@@ -32,7 +32,7 @@ require('api-easy')
 .post(bookmark)
 .expect('Has ID', function (err, res, body) {
   var obj;
-  assert.doesNotThrow(function() { obj = JSON.parse(body) }, SyntaxError);
+  assert.doesNotThrow(function() { obj = JSON.parse(body).result}, SyntaxError);
   assert.isObject(obj);
   assert.include(obj, 'id');
   assert.equal(expected_id, obj.id);
@@ -44,7 +44,7 @@ require('api-easy')
 .get()
 .expect('Collection', function (err, res, body) {
   var obj;
-  assert.doesNotThrow(function() { obj = JSON.parse(body) }, SyntaxError);
+  assert.doesNotThrow(function() { obj = JSON.parse(body).result }, SyntaxError);
   assert.isArray(obj);
   assert.include(obj, '/bookmarks/bookmark/' + expected_id);
 })
@@ -53,7 +53,7 @@ require('api-easy')
 .get('/bookmark/' + expected_id)
 .expect('Found bookmark', function (err, res, body) {
   var obj;
-  assert.doesNotThrow(function() { obj = JSON.parse(body) }, SyntaxError);
+  assert.doesNotThrow(function() { obj = JSON.parse(body).result }, SyntaxError);
   assert.deepEqual(obj, bookmark);
 })
 .next()
@@ -62,7 +62,7 @@ require('api-easy')
 .put('/bookmark/' + expected_id, {"title": "Google.com"})
 .expect('Updated bookmark', function (err, res, body) {
   var obj;
-  assert.doesNotThrow(function() { obj = JSON.parse(body) }, SyntaxError);
+  assert.doesNotThrow(function() { obj = JSON.parse(body).result }, SyntaxError);
   bookmark.title = "Google.com";
   assert.deepEqual(obj, bookmark);
 })
@@ -82,7 +82,7 @@ require('api-easy')
 .get()
 .expect('Empty database', function (err, res, body) {
   var obj;
-  assert.doesNotThrow(function() { obj = JSON.parse(body) }, SyntaxError);
+  assert.doesNotThrow(function() { obj = JSON.parse(body).result }, SyntaxError);
   assert.isArray(obj);
   assert.equal(obj.length, 0);
 })
