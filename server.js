@@ -1,7 +1,6 @@
-var http = require("http");
+var webservice = require('webservice');
+//var demoModule = require('./webservice/examples/demoModule');
 
-http.createServer(function(request, response){
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Hello World");
-    response.end();
-}).listen(8888);
+//webservice.createServer(demoModule).listen(8080);
+console.log(' > json webservice started on port 8080');
+

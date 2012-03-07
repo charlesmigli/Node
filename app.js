@@ -4,15 +4,38 @@
  */
 require('./response');
 var express = require('express')
-  , routes = require('./routes')
+    ,routes = require('./routes');
 
 var app = module.exports = express.createServer();
 var db = module.exports.db = require('./db')();
 // Configuration
 
+
+function errorHandler (options) {
+  var log = options.log || console.error
+    , stack = options.stack || false;
+  return function (err, req, res, next) {
+    log(err.message);
+    if (stack && err.stack) log(err.stack);
+    var content = err.message;
+    if (stack && err.stack) content += '\n' + err.stack;
+    res.respond(content, err.code || 500);
+  }
+}
+function checkRequestHeaders (req, res, next) {
+    console.log(req.accepts);
+  if (!req.accepts('application/json'))
+    return res.respond('You must accept content-type application/json', 406);
+  if ((req.method == 'PUT' || req.method == 'POST') && req.header('content-type') != 'application/json')
+    return res.respond('You must declare your content-type as application/json', 406);
+  return next();
+}
+
+
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.use(checkRequestHeaders);
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
@@ -20,11 +43,11 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(errorHandler({"stack": true}));
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+  app.use(errorHandler()); 
 });
 
 // Routes

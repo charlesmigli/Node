@@ -14,8 +14,8 @@ require('api-easy')
 .describe('bookmarks-rest')
 .use('localhost', PORT)
 .root('/bookmarks')
-.setHeader('Content-Type', 'application/json')
 .setHeader('Accept', 'application/json')
+//.setHeader('Content-Type', 'application/json')
  
 // Initially: start server
 .expect('Start server', function () {
@@ -23,6 +23,14 @@ require('api-easy')
   app.listen(PORT);
 }).next()
  
+// 0. Test header errors
+.get().expect(406) // Invalid headers
+.setHeader('Accept', 'application/json')
+.get().expect(200).next() // OK
+.put().expect(406) // Invalid headers
+.setHeader('Content-Type', 'application/json')
+.put().expect(405).next() // Method not allowed
+
 // 1. Empty database
 .del()
 .expect(200)
