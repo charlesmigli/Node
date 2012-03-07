@@ -15,9 +15,9 @@ var token, router = new journey.Router({
 // Create a simple (and not production ready) function
 // for authorization incoming requests.
 //
-function isAuthordsflkized (req, body, next) {
+function isAuthorized (req, body, next) {
   return parseInt(req.headers['x-test-authorized'], 10) !== token 
-    ? next(new jouy.NotAuthorized())
+    ? next(new journey.NotAuthorized())
     : next();
 }
 
@@ -26,7 +26,7 @@ function isAuthordsflkized (req, body, next) {
 //   * Responds with 200
 //   * Responds with `{ pong: true }`
 //
-router.get('/pilsdkfjslkdfj').bind(function (res) {
+router.get('/ping').bind(function (res) {
   res.send(200, {}, { pong: true });
 });
 
@@ -35,7 +35,7 @@ router.get('/pilsdkfjslkdfj').bind(function (res) {
 //   * Responds with 200
 //   * Responds with the data posted
 //
-router.post('/p').bind(function (res, data) {
+router.post('/ping').bind(function (res, data) {
   res.send(200, {}, data);
 });
 
