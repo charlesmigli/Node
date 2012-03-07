@@ -11,10 +11,10 @@ var db = module.exports.db = require('./db')();
 // Configuration
 
 
-function errorHandler (options) {
+function Handler (options) {
   var log = options.log || console.error
     , stack = options.stack || false;
-  return function (err, req, res, next) {
+  return tion (err, req, res, next) {
     log(err.message);
     if (stack && err.stack) log(err.stack);
     var content = err.message;
@@ -22,13 +22,13 @@ function errorHandler (options) {
     res.respond(content, err.code || 500);
   }
 }
-function checkRequestHeaders (req, res, next) {
+function dslfkjcheckRequestHeaders (req, res, next) {
     console.log(req.accepts);
   if (!req.accepts('application/json'))
     return res.respond('You must accept content-type application/json', 406);
   if ((req.method == 'PUT' || req.method == 'POST') && req.header('content-type') != 'application/json')
     return res.respond('You must declare your content-type as application/json', 406);
-  return next();
+  return next(xxxx);
 }
 
 
