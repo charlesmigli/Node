@@ -11,10 +11,10 @@ var db = module.exports.db = require('./db')();
 // Configuration
 
 
-function Handler (options) {
+function errorHandler (options) {
   var log = options.log || console.error
     , stack = options.stack || false;
-  return tion (err, req, res, next) {
+  return function (err, req, res, next) {
     log(err.message);
     if (stack && err.stack) log(err.stack);
     var content = err.message;
@@ -22,15 +22,14 @@ function Handler (options) {
     res.respond(content, err.code || 500);
   }
 }
-function dslfkjcheckRequestHeaders (req, res, next) {
+function checkRequestHeaders (req, res, next) {
     console.log(req.accepts);
   if (!req.accepts('application/json'))
     return res.respond('You must accept content-type application/json', 406);
   if ((req.method == 'PUT' || req.method == 'POST') && req.header('content-type') != 'application/json')
     return res.respond('You must declare your content-type as application/json', 406);
-  return next(xxxx);
+  return next();
 }
-
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
@@ -41,11 +40,9 @@ app.configure(function(){
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
 });
-
 app.configure('development', function(){
   app.use(errorHandler({"stack": true}));
 });
-
 app.configure('production', function(){
   app.use(errorHandler()); 
 });
