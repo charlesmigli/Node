@@ -30,6 +30,9 @@ function checkRequestHeaders (req, res, next) {
     return res.respond('You must declare your content-type as application/json', 406);
   return next();
 }
+//TEST3
+//
+//
 //TOTO FOR PR
 //
 //
