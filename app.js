@@ -47,7 +47,6 @@ app.configure('production', function(){
   app.use(errorHandler()); 
 });
 
-// Routes
 
 app.get('/', routes.index);
 
