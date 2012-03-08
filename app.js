@@ -30,7 +30,9 @@ function checkRequestHeaders (req, res, next) {
     return res.respond('You must declare your content-type as application/json', 406);
   return next();
 }
-
+//TOTO FOR PR
+//
+//
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
