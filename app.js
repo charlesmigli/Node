@@ -33,6 +33,13 @@ function checkRequestHeaders (req, res, next) {
 //TOTO FOR PR
 //
 //
+//
+//
+//
+//
+//
+//
+//TEST2
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
