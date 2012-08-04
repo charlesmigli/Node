@@ -10,7 +10,6 @@ var app = module.exports = express.createServer();
 var db = module.exports.db = require('./db')();
 // Configuration
 
-
 function errorHandler (options) {
   var log = options.log || console.error
     , stack = options.stack || false;
