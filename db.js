@@ -10,7 +10,6 @@ var db = {
       if (callback) this.client.on('close', callback);
     },
 };
-    
 
 module.exports = function (options) {
  
